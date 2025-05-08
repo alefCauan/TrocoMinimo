@@ -14,19 +14,21 @@ def calculate_minimum_change(change_value: int) -> tuple:
         change_value: The target amount.
 
     Returns:
-        The minimum number of coins needed, or -1 if it's not possible.
+        The minimum number of coins needed, or -1 if it's not possible, and execution time.
     """
-    dp = [float('inf')] * (change_value + 1)
-    dp[0] = 0
-    start = time.time()
+    if change_value == 0:
+        return 0, 0.0
+
+    dp = [0] + [change_value + 1] * change_value  # Usa um valor máximo fixo
+
+    start = time.perf_counter()
+
     for coin in coins:
         for i in range(coin, change_value + 1):
-            dp[i] = min(dp[i], dp[i - coin] + 1)
+            if dp[i - coin] + 1 < dp[i]:
+                dp[i] = dp[i - coin] + 1
 
-    result = dp[change_value] if dp[change_value] != float('inf') else -1
-    
-    end = time.time()
-    exec_time = end - start
-    
-    return result, exec_time
+    end = time.perf_counter()
 
+    result = dp[change_value] if dp[change_value] <= change_value else -1
+    return result, end - start
