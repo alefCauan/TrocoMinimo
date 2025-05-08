@@ -3,7 +3,7 @@ import os
 from matplotlib import pyplot as plt
 
 # Lista de moedas (em centavos, como inteiros)
-coins = [100, 50, 25, 10, 5]
+coins = [5, 10, 25, 50, 100]
 
 def calculate_recursive_minimum(change_value: int, coins=(1, 5, 10, 25)) -> tuple:
     """

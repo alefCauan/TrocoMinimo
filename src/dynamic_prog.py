@@ -2,7 +2,7 @@ import time
 import os
 
 # Lista de moedas (em centavos, como inteiros)
-coins = [100, 50, 25, 10, 5]
+coins = [5, 10, 25, 50, 100]
 
 
 def calculate_minimum_change(change_value: int) -> tuple:
@@ -26,6 +26,7 @@ def calculate_minimum_change(change_value: int) -> tuple:
         for i in range(coin, change_value + 1):
             if dp[i - coin] + 1 < dp[i]:
                 dp[i] = dp[i - coin] + 1
+
 
     end = time.perf_counter()
 
