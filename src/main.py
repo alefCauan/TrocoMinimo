@@ -54,7 +54,6 @@ if __name__ == "__main__":
     # Saving the timers and peak memory for each function in each iteration
     for i, change in enumerate(change_values):
         for j in range(10):
-            print("1")
             tracemalloc.start()
             _, time_dy = calculate_minimum_change(change)
             _, peak_dynamic = tracemalloc.get_traced_memory()
@@ -62,7 +61,6 @@ if __name__ == "__main__":
             dynamic_times[memory_names[i]].append(peak_dynamic / 1024)  # Convert to KB
             tracemalloc.reset_peak()
             
-            print("2")
             tracemalloc.start()
             _, time_rec = calculate_recursive_minimum(change)
             _, peak_recursive = tracemalloc.get_traced_memory()
