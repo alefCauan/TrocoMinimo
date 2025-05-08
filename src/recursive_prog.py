@@ -5,46 +5,26 @@ from matplotlib import pyplot as plt
 # Lista de moedas (em centavos, como inteiros)
 coins = [100, 50, 25, 10, 5]
 
-def calculate_minimum_change(change_value: int) -> tuple:
+def calculate_recursive_minimum(change_value: int, coins=(1, 5, 10, 25)) -> tuple:
     """
-    Calculates the minimum number of coins needed to make a given amount using recursion with memoization.
+    Calcula o número mínimo de moedas para um valor dado, usando recursão pura (sem memoização).
 
     Args:
-        change_value: The target amount.
+        change_value: Valor alvo.
+        coins: Tupla de moedas disponíveis.
 
     Returns:
-        The minimum number of coins needed, or -1 if it's not possible, and execution time.
+        Uma tupla com (mínimo de moedas ou -1 se não possível, tempo de execução)
     """
-    # Memoization cache
-    memo = {}
-    
-    def min_coins(value: int) -> int:
-        # Base cases
+    def min_coins(value):
         if value == 0:
             return 0
         if value < 0:
             return float('inf')
-        
-        # Check if already computed
-        if value in memo:
-            return memo[value]
-        
-        # Try each coin and find minimum
-        min_count = float('inf')
-        for coin in coins:
-            if coin <= value:
-                result = min_coins(value - coin)
-                if result != float('inf'):
-                    min_count = min(min_count, result + 1)
-        
-        # Store result in memo
-        memo[value] = min_count
-        return min_count
-    
+        return min((min_coins(value - c) + 1 for c in coins), default=float('inf'))
+
     start = time.time()
     result = min_coins(change_value)
-    end = time.time()
-    exec_time = end - start
-    
-    # Return -1 if no solution found
+    exec_time = time.time() - start
+
     return (result if result != float('inf') else -1, exec_time)

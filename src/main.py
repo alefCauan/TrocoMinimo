@@ -3,7 +3,7 @@ import os
 from matplotlib import pyplot as plt
 
 from dynamic_prog import calculate_minimum_change
-from recursive_prog import calculate_minimum_change
+from recursive_prog import calculate_recursive_minimum
 
 def compare_algorithms(change_values):
     dynamic_times = []
@@ -13,7 +13,7 @@ def compare_algorithms(change_values):
         _, dynamic_time = calculate_minimum_change(value)
         dynamic_times.append(dynamic_time)
         
-        _, recursive_time = calculate_minimum_change(value)
+        _, recursive_time = calculate_recursive_minimum(value)
         recursive_times.append(recursive_time)
     
     return dynamic_times, recursive_times
